@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>表单（一）单个表单项的检验</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <form action="" method="post">
+        <label>名称
+            <input type="text" name="myname" id="msg_name">
+            <button type="button" id="btn">验证</button>
+        </label>
+        <p id="tip">必填，长度为4~16个字符</p>
+    </form>
+</div>
+<script>
+    (function(){
+        var tip = document.getElementById("tip");
+        var msg_name = document.getElementById("msg_name");
+        var btn = document.getElementById("btn");
+
+        function validate_form(){
+            var txt = msg_name.value;
+            var len=0;
+            if(txt ===""){
+                tip.innerHTML = "姓名不能为空";
+                tip.style.color = "red";
+                msg_name.style.border = "2px solid red";
+            }else {
+                for(var i=0;i<txt.length;i++){
+                    if (testWord(txt[i])) {
+                        len += 1;
+                    } else if (testChinese(txt[i])) {
+                        len += 2;
+                    }
+                }
+                if(len>= 4 && len<= 16){
+                    tip.innerHTML = "名称格式正确";
+                    tip.style.color = "#0ec70e";
+                    msg_name.style.border = "2px solid #0ec70e";
+                }else{
+                    tip.innerHTML = "字符数应为4~16位";
+                    tip.style.color = "red";
+                    msg_name.style.border = "2px solid red";
+                }
+            }
+
+        }
+
+        btn.onclick = function(){
+            validate_form();
+        }
+        function test(ch) {
+            return /[0-9a-zA-Z]+/.test(ch);
+        }
+        function testWord(ch) {
+            return /^\w$/.test(ch);
+        }
+        function testChinese(ch) {
+            return /^[\u400-\u9fa5]$/.test(ch);
+        }
+
+    })();</script>
+</body>
+</html>
+

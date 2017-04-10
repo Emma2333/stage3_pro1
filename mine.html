@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form{
+            padding: 10px;
+        }
+        #btn{
+            background: #3598DB;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 10px;
+            border: 0px;
+        }
+        .tip{
+            display: block;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form action="" method="post">
+        <label>名称
+            <input type="text" name="myname" id="msg_name">
+            <p class="tip" id="nametip"></p>
+        </label>
+        <button type="button" id="btn">验证</button>
+    </form>
+</div>
+<script>
+    //改变所有输入内容一起判断的思想，将输入内容看做一个数组，每一个元素分别判断
+
+        var input=document.getElementById('msg_name');
+        var tip=document.getElementById('nametip');
+       var btn=document.getElementById('btn');
+        btn.onclick=function () {
+            var len=0;
+            var val=document.getElementById('msg_name').value;
+            var flag=true;
+            if(val===''){
+                tip.innerHTML = "用户名不可为空";
+                tip.style.color = "red";
+                input.style.border="2px solid red"
+            }else {
+                for(var i=0;i<val.length;i++){
+                    if(test(val[i])){
+                        len++;
+                    }else{
+                        flag=false;
+                        break;
+                    }
+                }
+                if(flag && len>=4 && len<=16){
+                    tip.innerHTML = "名称格式正确";
+                    tip.style.color = "#0ec70e";
+                    input.style.border="2px solid #0ec70e"
+                }else{
+                    tip.innerHTML = "字符数应为4~16位";
+                    tip.style.color = "red";
+                    input.style.border="2px solid red"
+                }
+            }
+            }
+
+    function test(ch) {
+        return /^[0-9a-zA-Z]$/.test(ch);
+    }
+
+
+</script>
+</body>
+</html>
